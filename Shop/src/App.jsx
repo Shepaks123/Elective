@@ -5,6 +5,8 @@ import Contact from './Contact';
 import FAQ from './FAQ';
 import Download from './Download';
 import './App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -74,7 +76,7 @@ function App() {
               <>
                 <section className="search-section">
                   <input type="text" placeholder="Search for games..." className="search-bar" />
-                  <button className="search-button">Search</button>
+                  <button className="search-button"> <FontAwesomeIcon icon={faMagnifyingGlass} /> Search</button>
                 </section>
 
                 <section className="categories-section" id="category">
