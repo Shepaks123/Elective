@@ -1,17 +1,22 @@
-/* App.css */
-
+/* Global Styles */
 body {
   font-family: Arial, sans-serif;
   background-color: #f5f5f5;
   color: #333;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
 }
 
+/* Main Container */
 .app-container {
   max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
   padding: 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 /* Navbar */
@@ -23,6 +28,7 @@ body {
   color: white;
   padding: 15px 30px;
   border-radius: 8px;
+  margin-bottom: 20px;
 }
 
 .logo {
@@ -33,7 +39,7 @@ body {
 .nav-links a {
   color: white;
   text-decoration: none;
-  margin: 0 10px;
+  margin: 0 15px;
   font-weight: bold;
 }
 
@@ -45,20 +51,21 @@ body {
 .search-section {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  align-items: center;
+  margin: 30px 0;
 }
 
 .search-bar {
-  padding: 10px;
-  width: 70%;
-  max-width: 600px;
+  padding: 12px 16px;
+  width: 100%;
+  max-width: 500px;
   border: 2px solid #008000;
   border-radius: 4px 0 0 4px;
   outline: none;
 }
 
 .search-button {
-  padding: 10px 20px;
+  padding: 12px 24px;
   background-color: #008000;
   color: white;
   border: none;
@@ -70,34 +77,71 @@ body {
   background-color: #006400;
 }
 
+/* Categories Section */
+.categories-section {
+  text-align: center;
+  margin: 30px auto;
+}
+
+.categories-section h2 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #008000;
+}
+
+.category-link {
+  padding: 10px 20px;
+  margin: 5px;
+  border: 1px solid #008000;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  color: #008000;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.category-link:hover {
+  background-color: #d4ffd4;
+  color: #006400;
+}
+
 /* Game Grid */
 .game-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px;
   justify-content: center;
+  padding: 20px 0;
 }
 
 .game-card {
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 8px;
-  width: 30%;
+  width: 100%;
   max-width: 300px;
-  padding: 15px;
+  padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .game-image {
   width: 100%;
   height: auto;
   border-radius: 8px;
+  margin-bottom: 15px;
 }
 
 .game-card h3 {
-  font-size: 18px;
+  font-size: 20px;
   margin: 10px 0;
+  color: #333;
 }
 
 .game-card p {
@@ -109,18 +153,186 @@ body {
   display: block;
   font-size: 12px;
   color: #888;
+  margin-top: 8px;
 }
 
 .download-button {
-  padding: 10px;
-  margin-top: 10px;
+  padding: 10px 20px;
+  margin-top: 15px;
   background-color: #008000;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .download-button:hover {
   background-color: #006400;
+}
+
+/* FAQ Layout */
+.faq-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.faq-content {
+  flex: 1;
+}
+
+.recently-requested-container {
+  width: 300px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recently-requested-container h2 {
+  font-size: 24px;
+  color: #008000;
+  margin-bottom: 15px;
+}
+
+.recently-requested-item {
+  height: 80px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.recently-requested-item h3 {
+  font-size: 18px;
+  margin: 0;
+  color: #333;
+}
+
+.recently-requested-item p {
+  font-size: 14px;
+  color: #555;
+  margin: 5px 0 0 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-section {
+    flex-direction: column;
+  }
+
+  .categories-section {
+    width: 100%;
+  }
+
+  .faq-layout {
+    flex-direction: column;
+  }
+
+  .recently-requested-container {
+    width: 100%;
+  }
+
+  .game-card {
+    max-width: 100%;
+  }
+}
+/* Download Page Styling */
+.download-page {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.download-title {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.download-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.download-genres,
+.download-release {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Download Box Styling */
+.download-box {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f0f5f0;
+  border: 1px solid #008000;
+  border-radius: 8px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.download-label {
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+}
+
+.download-button {
+  padding: 12px 24px;
+  background-color: #008000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.download-button:hover {
+  background-color: #006400;
+}
+
+/* Navbar Padding Adjustment */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #008000;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+}
+
+.nav-links a:hover {
+  color: #d4ffd4;
 }
