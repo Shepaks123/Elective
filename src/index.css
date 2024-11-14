@@ -1,0 +1,28 @@
+/* index.css or App.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Full height of the viewport */
+  background-color: #f9f9f9; /* Optional background color */
+  font-family: Arial, sans-serif; /* Optional font */
+  color: #333; /* Optional text color */
+}
+
+#root {
+  width: 100%;
+  max-width: 1200px; /* Optional max width for the app container */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
