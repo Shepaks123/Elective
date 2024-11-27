@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// Import images from 'src/image' directory
 import generalsImage from './image/CommandConquerGeneralsZero-Hour (1).jpg';
 import heroImage from './image/hero.png';
 import back4BloodImage from './image/back-4-blood.jpg';
@@ -6,6 +7,8 @@ import godOfWarImage from './image/god-of-war-listing-thumb-01-ps4-us-12jun17.pn
 import theRoom4OldSins from './image/capsule_616x353.jpg';
 import Left4Dead2 from './image/capsule_616x353 (1).jpg';
 import genshinImpactImage from './image/76593-1-1.jpg';
+import jordanImage from './image/N23_MJ_Cover_1200x630.png';  // Example of imported image
+import marvelAvengersImage from './image/mavels-avengers.jpg'; // Example of imported image
 
 const Dashboard = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -20,16 +23,17 @@ const Dashboard = () => {
     { title: 'GOD OF WAR', genres: ['Strategy', 'Single-player'], releaseDate: 'April 20, 2023', image: godOfWarImage },
     { title: 'THE ROOM 4 OLD SINS', genres: ['Puzzle', 'Casual'], releaseDate: 'May 5, 2023', image: theRoom4OldSins },
     { title: 'LEFT 4 DEAD 2', genres: ['Horror', 'Survival'], releaseDate: 'June 15, 2023', image: Left4Dead2 },
-    { title: '2K23 JORDAN EDITION', genres: ['Sports', 'Multiplayer'], releaseDate: 'June 7, 2023', image: 'src/image/N23_MJ_Cover_1200x630.png' },
-    { title: 'GENSHIN IMPACT', genres: ['RPG', 'Fantasy'], releaseDate: 'August 20, 2023', image: 'src/image/76593-1-1.jpg' },
+    { title: '2K23 JORDAN EDITION', genres: ['Sports', 'Multiplayer'], releaseDate: 'June 7, 2023', image: jordanImage },
+    { title: 'GENSHIN IMPACT', genres: ['RPG', 'Fantasy'], releaseDate: 'August 20, 2023', image: genshinImpactImage },
     { title: 'INSIDE', genres: ['Platformer', 'Indie'], releaseDate: 'September 10, 2023', image: 'src/image/maxresdefault.jpg' },
     { title: 'THE SIM 4', genres: ['Simulation', 'Sandbox'], releaseDate: 'October 15, 2023', image: 'src/image/EGS_TheSims4_ElectronicArts_S1_2560x1440-330b00849edfdacc61578d1486f47b31.jpeg' },
     { title: 'SPIDER-MAN 2', genres: ['Action', 'Adventure'], releaseDate: 'November 1, 2023', image: 'src/image/Marvels-Spider-Man-2_Key-Art.jpeg' },
     { title: 'FISHDOM', genres: ['Strategy', 'Puzzle'], releaseDate: 'December 1, 2023', image: 'src/image/maxresdefault (1).jpg' },
-    { title: 'FIVE NIGHT AT FREDDY', genres: ['Horror', 'Indie'], releaseDate: 'January 15, 2024', image: 'src/image/capsule_616x353 (2).jpg' },
+    { title: "FIVE NIGHT AT FREDDY'S: Into the Pit", genres: ['Horror', 'Indie'], releaseDate: 'January 15, 2024', image: 'src/image/capsule_616x353 (2).jpg' },
     { title: 'GTA VI', genres: ['Open World', 'Adventure'], releaseDate: 'February 5, 2024', image: 'src/image/GTA-6-Game.png' },
     { title: 'NEED FOR SPEED', genres: ['Racing', 'Multiplayer'], releaseDate: 'March 20, 2024', image: 'src/image/Need-for-Speed-2015-header-art.jpg' },
-
+    { title: 'MARVEL AVENGERS', genres: ['Action', 'Adventure', 'Open World'], releaseDate: 'January 8, 2021', image: marvelAvengersImage },
+    // Add more games if needed
     { title: 'MARVEL AVENGERS', genres: ['Action', 'Adventure', 'Open World'], releaseDate: 'January 8, 2021', image: 'src/image/mavels-avengers.jpg' },
     { title: 'MXGP', genres: ['Racing', 'Simulation'], releaseDate: 'February 8, 2021', image: 'src/image/mxgp-2019-the-official-motocross-videogame-pc-game-steam-cover.jpg' },
     { title: 'EMPIRE OF SIN', genres: ['FPS', 'Action', 'Multiplayer'], releaseDate: 'March 15, 2023', image: 'src/image/empire-of-sin-make-it-count-pc-mac-game-steam-europe-cover.jpg' },
@@ -48,14 +52,17 @@ const Dashboard = () => {
   ];
 
   const gamesPerPage = 5;
-  const filteredGames =
-    selectedCategory === 'All'
-      ? games.filter((game) => game.title.toLowerCase().includes(searchQuery.toLowerCase()))
-      : games.filter(
-          (game) =>
-            game.genres.includes(selectedCategory) &&
-            game.title.toLowerCase().includes(searchQuery.toLowerCase())
-        );
+
+  const filteredGames = games.filter((game) => {
+    const lowerCaseQuery = searchQuery.toLowerCase();
+    const lowerCaseTitle = game.title.toLowerCase();
+    return (
+      (selectedCategory === 'All' || game.genres.includes(selectedCategory)) &&
+      (lowerCaseTitle.includes(lowerCaseQuery) || 
+       game.genres.some((genre) => genre.toLowerCase().includes(lowerCaseQuery)))
+    );
+  });
+  
 
   const indexOfLastGame = currentPage * gamesPerPage;
   const indexOfFirstGame = indexOfLastGame - gamesPerPage;
@@ -89,84 +96,90 @@ const Dashboard = () => {
       {/* Navigation Bar */}
       <nav style={styles.navbar}>
         <div style={styles.logoContainer}>
-          <img
-            src="project/src/image/cute-frog-retro-vintage-cartoon-260nw-2466628697-removebg-preview.png" // Replace with your actual logo path
-            alt="Logo"
-            style={styles.logoImage}
-          />
-          <span style={styles.logoText}>GreenFrog</span>
-        </div>
-        <div style={styles.navLinks}>
-          <a href="#home" style={styles.navLink}>
-            Home
-          </a>
-          <a href="#categories" style={styles.navLink}>
-            Categories
-          </a>
-          <a href="#about" style={styles.navLink}>
-            About Us
-          </a>
+          <h1>GREEN FROG</h1>
         </div>
       </nav>
 
+      {/* Game List Section */}
+      <section style={styles.gameListSection}>
+        <div style={styles.filtersContainer}>
+          {/* Category and Search Filters */}
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            style={styles.select}
+          >
+            <option value="All">All</option>
+            <option value="Action">Action</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Puzzle">Puzzle</option>
+            <option value="Racing">Racing</option>
+            <option value="Strategy">Strategy</option>
+            <option value="Simulation">Simulation</option>
+            <option value="Horror">Horror</option>
+            <option value="RPG">RPG</option>
+            <option value="FPS">FPS</option>
+            <option value="Multiplayer">Multiplayer</option>
+          </select>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search games..."
+            style={styles.searchBar}
+          />
+        </div>
 
-      <section style={styles.searchSection}>
-        <input
-          type="text"
-          placeholder="Search for games..."
-          style={styles.searchBar}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </section>
-
-      <section id="categories" style={styles.categoriesSection}>
-        <h2>Categories</h2>
-        <div style={styles.categories}>
-          {['All', 'Action', 'Adventure', 'Racing', 'FPS', 'Sports', 'Horror'].map((category) => (
-            <button
-              key={category}
-              style={styles.categoryButton}
-              onClick={() => setSelectedCategory(category)}
-            >
-              {category}
-            </button>
+        {/* Game Cards */}
+        <div style={styles.gameCardsContainer}>
+          {currentGames.map((game) => (
+            <div key={game.title} style={styles.gameCard}>
+              <img src={game.image} alt={game.title} style={styles.gameImage} />
+              <h3 style={styles.gameTitle}>{game.title}</h3>
+              <p style={styles.gameGenres}>{game.genres.join(', ')}</p>
+              <p style={styles.gameReleaseDate}>{game.releaseDate}</p>
+              <button style={styles.previewButton} onClick={() => handlePreview(game)}>
+                Preview
+              </button>
+              <button style={styles.downloadButton} onClick={() => handleDownload(game.image)}>
+                Download
+              </button>
+            </div>
           ))}
+        </div>
+
+        {/* Pagination Controls */}
+        <div style={styles.pagination}>
+          <button
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+            style={styles.pageButton}
+          >
+            Prev
+          </button>
+          <span style={styles.pageNumber}>{currentPage}</span>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === Math.ceil(filteredGames.length / gamesPerPage)}
+            style={styles.pageButton}
+          >
+            Next
+          </button>
         </div>
       </section>
 
-      <section id="games" style={styles.gamesList}>
-        {currentGames.length > 0 ? (
-          currentGames.map((game) => (
-            <div key={game.title} style={styles.gameCard}>
-              <h3>{game.title}</h3>
-              <p>Genres: {game.genres.join(', ')}</p>
-              <p>Release Date: {game.releaseDate}</p>
-              <button onClick={() => handlePreview(game)} style={styles.previewButton}>Preview</button>
-              <button onClick={() => handleDownload(game.image)} style={styles.downloadButton}>Download</button>
-            </div>
-          ))
-        ) : (
-          <p style={styles.noResults}>No games found. Try another search or category.</p>
-        )}
-      </section>
-
-      <div style={styles.pagination}>
-        <button onClick={handlePreviousPage} style={styles.pageButton} disabled={currentPage === 1}>
-          Back Page
-        </button>
-        <button onClick={handleNextPage} style={styles.pageButton} disabled={currentPage >= Math.ceil(filteredGames.length / gamesPerPage)}>
-          Next Page
-        </button>
-      </div>
-
+      {/* Game Preview Modal */}
       {previewGame && (
-        <div style={styles.previewModal}>
-          <h2>{previewGame.title} - Preview</h2>
-          <img src={previewGame.image} alt={previewGame.title} style={styles.previewImage} />
-          <p>Genres: {previewGame.genres.join(', ')}</p>
-          <p>Release Date: {previewGame.releaseDate}</p>
-          <button onClick={() => setPreviewGame(null)} style={styles.closePreview}>Close Preview</button>
+        <div style={styles.modal} onClick={() => setPreviewGame(null)}>
+          <div style={styles.modalContent}>
+            <h2>{previewGame.title}</h2>
+            <img src={previewGame.image} alt={previewGame.title} style={styles.modalImage} />
+            <p>{previewGame.genres.join(', ')}</p>
+            <p>{previewGame.releaseDate}</p>
+            <button style={styles.closePreview} onClick={() => setPreviewGame(null)}>
+              Close Preview
+            </button>
+          </div>
         </div>
       )}
     </div>
@@ -175,181 +188,140 @@ const Dashboard = () => {
 
 const styles = {
   dashboardContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',  // Horizontally center the content
-    justifyContent: 'center',  // Vertically center the content
-    padding: '30px',
-    textAlign: 'center',
-    minHeight: '100vh',  // Make sure it takes full viewport height
-    width: '100%',
-    boxSizing: 'border-box',
-    backgroundColor: '#f4f4f4',  // Optional background color to contrast with the white cards
+    fontFamily: 'Arial, sans-serif',
   },
   navbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#008000',
+    backgroundColor: '#0c8026',
     color: 'white',
-    padding: '10px 20px',
-    borderRadius: '5px',
-    width: '100%',
-    maxWidth: '1200px',
-    margin: '0 auto',  // Centers navbar horizontally
+    padding: '15px',
+    textAlign: 'center',
   },
   logoContainer: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#0c8026',
   },
-  logoImage: {
-    width: '80px',
-    height: '80px',
+  logo: {
+    width: '40px',
+    height: '40px',
     marginRight: '10px',
   },
-  logoText: {
-    color: 'white',
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
+  gameListSection: {
+    padding: '20px',
   },
-  navLinks: {
+  filtersContainer: {
     display: 'flex',
-    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: '20px',
   },
-  navLink: {
-    color: 'white',
-    textDecoration: 'none',
-    margin: '0 15px',
-    fontWeight: 'bold',
-    fontSize: '1rem',
-    transition: 'color 0.3s ease',
-  },
-  searchSection: {
-    display: 'flex',
-    justifyContent: 'center',  // Center the search bar horizontally
-    margin: '30px 0',
-    width: '100%',
+  select: {
+    padding: '8px 12px',
+    fontSize: '16px',
   },
   searchBar: {
-    padding: '12px 16px',
-    width: '100%',
-    maxWidth: '500px',  // Limit search bar width
-    border: '2px solid #008000',
-    borderRadius: '4px',
-    outline: 'none',
+    padding: '8px 12px',
+    width: '200px',
+    fontSize: '16px',
   },
-  categoriesSection: {
-    textAlign: 'center',
-    margin: '30px auto',
-    width: '100%',
-    maxWidth: '1200px',
-  },
-  categories: {
+  gameCardsContainer: {
     display: 'flex',
-    justifyContent: 'center',
     flexWrap: 'wrap',
-  },
-  categoryButton: {
-    margin: '5px',
-    padding: '10px 20px',
-    border: 'none',
-    borderRadius: '5px',
-    backgroundColor: '#008000',
-    color: 'white',
-    cursor: 'pointer',
-    fontSize: '1rem',
-  },
-  gamesList: {
-    display: 'flex',
-    justifyContent: 'center',  // Horizontally center the game cards
-    flexWrap: 'wrap',
-    gap: '20px',
-    margin: '30px auto',
-    width: '100%',
-    maxWidth: '1200px',
-  },
-  gameCard: {
-    backgroundColor: 'white',
-    border: '1px solid #ddd',
-    borderRadius: '8px',
-    padding: '20px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    textAlign: 'center',
-    transition: 'transform 0.3s, box-shadow 0.3s',
-    width: '200px',  // Set fixed width for game cards
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
     justifyContent: 'space-between',
   },
+  gameCard: {
+    width: '200px',
+    marginBottom: '20px',
+    padding: '10px',
+    border: '1px solid #ddd',
+    borderRadius: '8px',
+    textAlign: 'center',
+    backgroundColor: '#f9f9f9',
+  },
+  gameImage: {
+    width: '100%',
+    height: 'auto',
+    borderRadius: '4px',
+  },
+  gameTitle: {
+    fontSize: '18px',
+    fontWeight: 'bold',
+    margin: '10px 0',
+  },
+  gameGenres: {
+    fontSize: '14px',
+    color: '#777',
+  },
+  gameReleaseDate: {
+    fontSize: '12px',
+    color: '#888',
+  },
   previewButton: {
-    backgroundColor: '#008000',
-    color: 'white',
-    padding: '10px 20px',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontSize: '1rem',
+    padding: '8px 12px',
     marginTop: '10px',
+    backgroundColor: '#007bff',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
   },
   downloadButton: {
-    backgroundColor: '#ff5722',
-    color: 'white',
-    padding: '10px 20px',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontSize: '1rem',
+    padding: '8px 12px',
     marginTop: '10px',
-  },
-  noResults: {
-    marginTop: '20px',
-    color: '#555',
+    backgroundColor: '#28a745',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
   },
   pagination: {
     display: 'flex',
-    justifyContent: 'center',  // Center pagination buttons
-    gap: '20px',
+    justifyContent: 'center',
     marginTop: '20px',
   },
   pageButton: {
-    padding: '10px 20px',
-    backgroundColor: '#008000',
+    padding: '10px',
+    margin: '0 10px',
+    backgroundColor: '#007bff',
     color: 'white',
     border: 'none',
-    borderRadius: '5px',
+    borderRadius: '4px',
     cursor: 'pointer',
-    fontSize: '1rem',
   },
-  previewModal: {
-    position: 'absolute',
-    top: '20%',
+  pageNumber: {
+    fontSize: '16px',
+    alignSelf: 'center',
+  },
+  modal: {
+    position: 'fixed',
+    top: '50%',
     left: '50%',
-    transform: 'translateX(-50%)',  // Center modal horizontally
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    padding: '20px',
+    borderRadius: '8px',
+    zIndex: 1000,
+  },
+  modalContent: {
     backgroundColor: 'white',
     padding: '20px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+    borderRadius: '8px',
     textAlign: 'center',
-    zIndex: '100',
-    width: '80%',
-    maxWidth: '800px',
   },
-  previewImage: {
+  modalImage: {
     width: '100%',
-    maxHeight: '400px',
-    objectFit: 'cover',
-    marginBottom: '20px',
+    height: 'auto',
+    borderRadius: '4px',
   },
   closePreview: {
-    padding: '10px 20px',
-    backgroundColor: '#ff5722',
+    marginTop: '10px',
+    padding: '8px 12px',
+    backgroundColor: '#dc3545',
     color: 'white',
     border: 'none',
-    borderRadius: '5px',
+    borderRadius: '4px',
     cursor: 'pointer',
-    fontSize: '1rem',
   },
 };
-
 
 export default Dashboard;
