@@ -1,5 +1,6 @@
 import React from 'react';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import { useNavigate, Link } from 'react-router-dom';
 import {
   MDBCol,
   MDBContainer,
@@ -11,32 +12,45 @@ import {
   MDBBtn,
   MDBBreadcrumb,
   MDBBreadcrumbItem,
-  MDBProgress,
-  MDBProgressBar,
-  MDBIcon,
-  MDBListGroup,
-  MDBListGroupItem
 } from 'mdb-react-ui-kit';
 
-export default function Profile() {
+const Logout = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear(); 
+    navigate('/login'); 
+  };
+
   return (
-    <section style={{ backgroundColor: '#eee' }}>
+    <MDBBreadcrumbItem onClick={handleLogout}>
+      <a  href=" " style={{ color: '#0c8026' }}>Logout</a>
+    </MDBBreadcrumbItem>
+  );
+};
+
+export default function Profile({ favorites = [] }) {
+  return (
+    <section style={{ backgroundColor: '#0c8026' }}>
       <MDBContainer className="py-5">
+        {/* Breadcrumb and Logout */}
         <MDBRow>
-          <MDBCol>
+          <MDBCol >
             <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
               <MDBBreadcrumbItem>
-                <a href='#'>Home</a>
+              <Link to="/dashboard">
+                <a href=" " style={{ color: '#0c8026' }}>Home</a>
+                </Link>
               </MDBBreadcrumbItem>
-              <MDBBreadcrumbItem>
-                <a href="#">User</a>
-              </MDBBreadcrumbItem>
+              <Logout />
               <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
+              
             </MDBBreadcrumb>
           </MDBCol>
         </MDBRow>
 
         <MDBRow>
+          {/* Left Section - User Info */}
           <MDBCol lg="4">
             <MDBCard className="mb-4">
               <MDBCardBody className="text-center">
@@ -45,44 +59,22 @@ export default function Profile() {
                   alt="avatar"
                   className="rounded-circle"
                   style={{ width: '150px' }}
-                  fluid />
+                  fluid
+                />
                 <p className="text-muted mb-1">Full Stack Developer</p>
                 <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
                 <div className="d-flex justify-content-center mb-2">
-                  <MDBBtn>Follow</MDBBtn>
-                  <MDBBtn outline className="ms-1">Message</MDBBtn>
+                  <MDBBtn outline className="ms-1" style={{ color: '#0c8026', borderColor: '#0c8026' }}>
+                    Edit Profile
+                  </MDBBtn>
                 </div>
               </MDBCardBody>
             </MDBCard>
-
-            <MDBCard className="mb-4 mb-lg-0">
-              <MDBCardBody className="p-0">
-                <MDBListGroup flush className="rounded-3">
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fas icon="globe fa-lg text-warning" />
-                    <MDBCardText>https://mdbootstrap.com</MDBCardText>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="github fa-lg" style={{ color: '#333333' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="twitter fa-lg" style={{ color: '#55acee' }} />
-                    <MDBCardText>@mdbootstrap</MDBCardText>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="instagram fa-lg" style={{ color: '#ac2bac' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="facebook fa-lg" style={{ color: '#3b5998' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
-                  </MDBListGroupItem>
-                </MDBListGroup>
-              </MDBCardBody>
-            </MDBCard>
           </MDBCol>
+
+          {/* Right Section - Profile Details and Favorites */}
           <MDBCol lg="8">
+            {/* Profile Details */}
             <MDBCard className="mb-4">
               <MDBCardBody>
                 <MDBRow>
@@ -90,7 +82,7 @@ export default function Profile() {
                     <MDBCardText>Full Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
+                    <MDBCardText className="text-muted">Johnathan Smith</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -126,76 +118,45 @@ export default function Profile() {
                     <MDBCardText>Address</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Bay Area, San Francisco, CA</MDBCardText>
+                    <MDBCardText className="text-muted">
+                      Bay Area, San Francisco, CA
+                    </MDBCardText>
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
             </MDBCard>
 
+            {/* Favorite Games */}
             <MDBRow>
-              <MDBCol md="6">
-                <MDBCard className="mb-4 mb-md-0">
-                  <MDBCardBody>
-                    <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-                    <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={80} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>
-
-              <MDBCol md="6">
-                <MDBCard className="mb-4 mb-md-0">
-                  <MDBCardBody>
-                    <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-                    <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={80} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>
+              <MDBCard className="mb-4">
+                <div style={styles.profileContainer}>
+                  <h2 style={styles.header}>My Favorite Games</h2>
+                  {favorites && favorites.length === 0 ? (
+                    <p style={styles.noFavorites}>
+                      You haven't selected any favorite games yet.
+                    </p>
+                  ) : (
+                    <div style={styles.favoritesContainer}>
+                      {favorites.map((game) => (
+                        <div key={game.title} style={styles.favoriteCard}>
+                          <img
+                            src={game.image}
+                            alt={game.title}
+                            style={styles.favoriteImage}
+                          />
+                          <h3 style={styles.favoriteTitle}>{game.title}</h3>
+                          <p style={styles.favoriteGenres}>
+                            {game.genres.join(', ')}
+                          </p>
+                          <p style={styles.favoriteReleaseDate}>
+                            Released: {game.releaseDate}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </MDBCard>
             </MDBRow>
           </MDBCol>
         </MDBRow>
@@ -203,3 +164,61 @@ export default function Profile() {
     </section>
   );
 }
+
+const styles = {
+  profileContainer: {
+    fontFamily: 'Arial, sans-serif',
+    padding: '20px',
+    backgroundColor: '#f4f4f4',
+    borderRadius: '8px',
+    maxWidth: '800px',
+    margin: '20px auto',
+    textAlign: 'center',
+  },
+  header: {
+    fontSize: '24px',
+    marginBottom: '20px',
+  },
+  noFavorites: {
+    fontSize: '18px',
+    color: '#777',
+  },
+  favoritesContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: '20px',
+  },
+  favoriteCard: {
+    width: '200px',
+    padding: '10px',
+    backgroundColor: '#fff',
+    border: '1px solid #ddd',
+    borderRadius: '8px',
+    textAlign: 'center',
+    boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+  },
+  favoriteImage: {
+    width: '100%',
+    height: 'auto',
+    borderRadius: '4px',
+  },
+  favoriteTitle: {
+    fontSize: '18px',
+    fontWeight: 'bold',
+    marginTop: '10px',
+  },
+  favoriteGenres: {
+    fontSize: '14px',
+    color: '#555',
+    marginTop: '5px',
+  },
+  favoriteReleaseDate: {
+    fontSize: '12px',
+    color: '#888',
+    marginTop: '5px',
+  },
+  aLink:{
+    color:'#0c8026',
+  }
+};
